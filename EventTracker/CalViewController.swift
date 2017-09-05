@@ -219,13 +219,12 @@ class CalViewController: UIViewController, JTAppleCalendarViewDelegate, JTAppleC
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let cell = cell as? CustomCell else {return}
         configureCell(cell: cell, state: cellState)
-        let makelabel = "Selected: \(cellState.day), \(cellState.text)"
-        setupLabel(info: makelabel)
-        //setupLabel(info: cell.dateLabel.text!)
-        //print(state.day)
+        // prepare the view below the calendar
         formatter.dateFormat = "yyyy MM dd"
         eventsInDay = prepareEventTable(dateString: formatter.string(from: cellState.date))
         print("found eventsInDay: \(eventsInDay)")
+        let makelabel = "\(eventsInDay.count) Event(s) on \(String(describing: cellState.day).capitalized) \(cellState.text)"
+        setupLabel(info: makelabel)
         dayTable.reloadData()
     }
 
